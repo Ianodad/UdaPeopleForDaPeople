@@ -177,8 +177,6 @@ jobs:
           working_directory: ./.circleci/ansible
           command: |
             apk add --update ansible aws-cli
-            echo "Ansible inventories >> Requires for the next job"
-            cat .circleci/ansible/inventory.txt
       - run:
           name: Configure server
           command: |
