@@ -205,15 +205,14 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - restore_cache:
-          keys: [backend-build]
-      # Run database migrations
+      # - restore_cache:
+      #     keys: [backend-build]
+      # # Run database migrations
       - run:
           name: Run database migrations using kvdb.io
           command: |
             cd backend
             npm install
-            npm audit fix --audit-level=critical --force
             npm run migrations > migrations.txt
             cat migrations.txt
             export migration_status=$(cat migrations.txt | grep -c "has been executed successfully")
