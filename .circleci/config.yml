@@ -178,10 +178,14 @@ jobs:
           working_directory: ./.circleci/ansible
           command: |
             apk add --update ansible aws-cli
+            echo "Ansible inventories >> Requires for the next job"
+            cat .circleci/ansible/inventory.txt
       - run:
           name: Configure server
           command: |
             cd .circleci/ansible
+            echo "Print directory"
+            ls -la
             cat inventory.txt
             ansible-playbook -i inventory.txt configure-server.yml
       # - destroy-environment:
