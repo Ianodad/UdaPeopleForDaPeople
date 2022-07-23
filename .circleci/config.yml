@@ -149,10 +149,10 @@ jobs:
           name: Add back-end ip to ansible inventory
           command: |
             cd .circleci/ansible
-            aws --region us-east-1 \
-              ec2 describe-instances \
-              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --query 'Reservations[*].Instances[*].[PublicIpAddress]' \
+            echo "Adding backend ip to inventory"
+            aws ec2 describe-instances \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --filters "Name=tag:project,Values=udapeople" \
               --output text >> inventory.txt
             cat inventory.txt
       - run: yum -y install tar gzip      
