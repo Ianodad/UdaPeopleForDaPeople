@@ -266,7 +266,7 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
-      - install_awscli
+      # - install_awscli
       - restore_cache:
           keys: [frontend-build]
       - run:
@@ -274,6 +274,7 @@ jobs:
           command: |
             sudo apt-get update
             apk add --update install tar gzip ansible nodejs npm curl
+            pip install awscli
       - run:
           name: Get backend url
           command: |
@@ -284,6 +285,8 @@ jobs:
               --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
+            echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
+            cat frontend/.env
       - run:
           name: Deploy frontend objects
           command: |
