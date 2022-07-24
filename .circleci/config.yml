@@ -263,7 +263,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: circleci/python:3.8.2
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
       - install_awscli
@@ -273,7 +273,7 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install tar gzip nodejs npm
+            apk add --update install tar gzip ansible nodejs npm curl
       - run:
           name: Get backend url
           command: |
