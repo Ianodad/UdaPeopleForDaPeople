@@ -267,7 +267,6 @@ jobs:
     steps:
       - checkout
       - install_awscli
-      - install_ansible
       - restore_cache:
           keys: [frontend-build]
       - run:
