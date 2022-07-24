@@ -16,6 +16,35 @@ commands:
             aws s3 rm "s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7}" --recursive
             aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
             aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
+
+  # dependencies install commands             
+  install_awscli:
+    description: Install AWS CLI v2
+    steps:
+      - run:
+          name: Install AWS CLI v2
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+  install_ansible:
+    description: Install Ansible
+    steps:
+      - run:
+          name: Install Ansible
+          command: |
+            sudo apt update
+            sudo apt install software-properties-common -y
+            sudo add-apt-repository --yes --update ppa:ansible/ansible
+            sudo apt install ansible -y
+  install_nodejs:
+    description: Install Node.js 13
+    steps:
+      - run:
+          name: Install Node.js 13
+          command: |
+            curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+            sudo apt install -y nodejs  
 # revert-migrations:
 #   description: Revert the last migration if successfully run in the current workflow.
 #   parameters:
@@ -200,65 +229,72 @@ jobs:
             ansible-playbook -i inventory.txt configure-server.yml
       - destroy-environment
      
-  run-migrations:
+  # run-migrations:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - checkout
+  #     - install_awscli
+  #     - restore_cache:
+  #         keys: [backend-build]
+  #     # # Run database migrations
+  #     - run:
+  #         name: Run database migrations using kvdb.io
+  #         command: |
+  #           cd backend
+  #           # npm install
+  #           echo 'DUMP MIGRATIONS'
+  #           echo "PWD: " $(pwd)
+  #           npm run migrations > migrations_dump.txt
+  #           cat migrations_dump.txt
+  #           export migration_status=$(cat migrations_dump.txt | grep -c "has been executed successfully")
+  #     - run:
+  #         name: Send migration results to kvdb.io
+  #         command: |
+  #           cd backend
+  #           if if [ $migration_status > 0 ]
+  #           then
+  #             curl --insecure https://kvdb.io/4HZBfWn81g32AsNh3g3BmK/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+  #             else
+  #                echo "No Migrations were executed"
+  #           fi
+  #     - destroy-environment
+      
+
+  deploy-frontend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: circleci/python:3.8.2
     steps:
       - checkout
+      - install_awscli
+      - install-ansible
+      - restore_cache:
+          keys: [frontend-build]
       - run:
           name: Install dependencies
           command: |
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip awscliv2.zip
-            sudo ./aws/install
-      # - restore_cache:
-      #     keys: [backend-build]
-      # # Run database migrations
+            sudo apt-get update
+            sudo apt-get install tar gzip nodejs npm
       - run:
-          name: Run database migrations using kvdb.io
+          name: Get backend url
           command: |
-            cd backend
-            npm install --legacy-peer-deps
-            # npm audit fix
-            # npm run build
-            echo 'DUMP MIGRATIONS'
-            echo "PWD: " $(pwd)
-            npm run migrations > migrations.txt
-            cat migrations.txt
-            export migration_status=$(cat migrations.txt | grep -c "has been executed successfully")
+            # your code here
+            export BACKEND_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --output text)
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}"
       - run:
-          name: Send migration results to kvdb.io
+          name: Deploy frontend objects
           command: |
-            cd backend
-            if if [ $migration_status > 0 ]
-            then
-              curl --insecure https://kvdb.io/4HZBfWn81g32AsNh3g3BmK/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
-              else
-                 echo "No Migrations were executed"
-            fi
-      - destroy-environment
-      
-
-  # deploy-frontend:
-  #   docker:
-  #     # Docker image here that supports AWS CLI
-  #   steps:
-  #     # Checkout code from git
-  #     - run:
-  #         name: Install dependencies
-  #         command: |
-  #           # your code here
-  #     - run:
-  #         name: Get backend url
-  #         command: |
-  #           # your code here
-  #           export API_URL="http://${BACKEND_IP}:3030"
-  #           echo "${API_URL}"
-  #     - run:
-  #         name: Deploy frontend objects
-  #         command: |
-  #           # your code here
+            cd frontend
+            npm install
+            npm run build
+            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
+            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
   # Here's where you will add some code to rollback on failure
+       -destroy-environment
 
   # deploy-backend:
   #   docker:
