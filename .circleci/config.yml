@@ -218,8 +218,11 @@ jobs:
           name: Run database migrations using kvdb.io
           command: |
             cd backend
-            npm install
-            npm audit fix
+            npm install --legacy-peer-deps
+            # npm audit fix
+            # npm run build
+            echo 'DUMP MIGRATIONS'
+            echo "PWD: " $(pwd)
             npm run migrations > migrations.txt
             cat migrations.txt
             export migration_status=$(cat migrations.txt | grep -c "has been executed successfully")
