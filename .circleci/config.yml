@@ -384,7 +384,7 @@ jobs:
           command: |
             if curl -s $API_URL/api/status | grep "ok"
             then
-              exit 0
+              exit 1
             else
               exit 1
             fi
@@ -399,7 +399,7 @@ jobs:
             else
               exit 1
             fi
-      # - destroy-environment
+      - destroy-environment
 
   # cloudfront-update:
   #   docker:
