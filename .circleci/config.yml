@@ -438,6 +438,7 @@ jobs:
               --stack-status-filter CREATE_COMPLETE --output text))
             echo "${STACKS[@]}"
 
+
             if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]; then
               echo "start clean up"
               aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}"
