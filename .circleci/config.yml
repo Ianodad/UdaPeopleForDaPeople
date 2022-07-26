@@ -413,11 +413,11 @@ jobs:
       - run:
           name: Update cloudfront distribution
           command: |
-              aws cloudformation deploy \
+            aws cloudformation deploy \
               --template-file .circleci/files/cloudfront.yml \
-              --stack-name cloudfront-stack-${CIRCLE_WORKFLOW_ID:0:7} \
+              --stack-name udapeople-cloudfront --no-fail-on-empty-changeset \
               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
-              --tags project=udapeople
+              --tags project=udapeople 
       - destroy-environment      
 
 # cleanup:
