@@ -126,6 +126,7 @@ jobs:
             cd backend
             npm install
             npm run test
+
   scan-frontend:
     docker:
       - image: circleci/node:13.8.0
@@ -269,7 +270,6 @@ jobs:
   #           fi
   #     - destroy-environment
       
-
   deploy-frontend:
     docker:
       - image: amazon/aws-cli
