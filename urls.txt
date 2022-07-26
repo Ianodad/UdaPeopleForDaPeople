@@ -1,5 +1,5 @@
 URL01(githuburl): https://github.com/Ianodad/UdaPeopleForDaPeople
-URL02(S3Bucket): http://udapeople-afdedf1.s3-website-us-east-1.amazonaws.com
-URL03(cloudfront): https://d2isgg6wx1msch.cloudfront.net/
-URL04(backend): http://ec2-18-209-24-106.compute-1.amazonaws.com:3030/
+URL02(S3Bucket): http://udapeople-3504cec.s3-website-us-east-1.amazonaws.com
+URL03(cloudfront): https://d2isgg6wx1msch.cloudfront.net
+URL04(backend): http://ec2-18-206-126-173.compute-1.amazonaws.com/
 URL05(prometheus): http://ec2-54-242-19-250.compute-1.amazonaws.com:9090/graph
