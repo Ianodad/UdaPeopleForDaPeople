@@ -1,7 +1,4 @@
-We are archiving this repository because we do not want learners to push personal development to the current repository. If you have any issues or suggestions to make, feel free to:
-- Utilize the https://knowledge.udacity.com/ forum to seek help on content-specific issues.
-- [Submit a support ticket](https://udacity.zendesk.com/hc/en-us/requests/new) along with the link to your forked repository. 
-- If you are an enterprise learner, please [Submit a support ticket here](https://udacityenterprise.zendesk.com/hc/en-us/requests/new?ticket_form_id=360000279131)
+## UDAPEOPLE
 
 ## Give your Application Auto-Deploy Superpowers
 
@@ -27,11 +24,11 @@ In this project, you will prove your mastery of the following learning objective
 For your submission, please submit the following:
 
 - A text file named `urls.txt` including:
-  1. Public Url to GitHub repository (not private) [URL01]
-  1. Public URL for your S3 Bucket (aka, your green candidate front-end) [URL02]
-  1. Public URL for your CloudFront distribution (aka, your blue production front-end) [URL03]
-  1. Public URLs to deployed application back-end in EC2 [URL04]
-  1. Public URL to your Prometheus Server [URL05]
+  1. GitHub repository (not private) [URL01](https://github.com/Ianodad/UdaPeopleForDaPeople)
+  2. Public URL for your S3 Bucket (aka, your green candidate front-end) [URL02](https://github.com/Ianodad/UdaPeopleForDaPeople/tree/master/screenshots/SCREENSHOT01.png)
+  3. Public URL for your CloudFront distribution (aka, your blue production front-end) [URL03]
+  4. Public URLs to deployed application back-end in EC2 [URL04]
+  5. Public URL to your Prometheus Server [URL05]
 - Your screenshots in JPG or PNG format, named using the screenshot number listed in the instructions. These screenshots should be included in your code repository in the root folder.
   1. Job failed because of compile errors. [SCREENSHOT01]
   1. Job failed because of unit tests. [SCREENSHOT02]
