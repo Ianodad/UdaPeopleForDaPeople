@@ -1,2 +1,5 @@
-URL01(githuburl):
-URL02(S3 Bucket):
+URL01(githuburl):https://github.com/Ianodad/UdaPeopleForDaPeople
+URL02(S3Bucket):
+URL03(cloudfront):
+URL04(backend):
+URL05(prometheus):

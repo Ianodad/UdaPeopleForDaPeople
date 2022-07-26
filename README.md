@@ -1,5 +1,5 @@
 ## UDAPEOPLE
-
+This is devops practical project to understand the use of some devops tools.
 ## Give your Application Auto-Deploy Superpowers
 
 In this project, you will prove your mastery of the following learning objectives:
@@ -25,22 +25,22 @@ For your submission, please submit the following:
 
 - A text file named `urls.txt` including:
   1. GitHub repository (not private) [URL01](https://github.com/Ianodad/UdaPeopleForDaPeople)
-  2. Public URL for your S3 Bucket (aka, your green candidate front-end) [URL02](https://github.com/Ianodad/UdaPeopleForDaPeople/tree/master/screenshots/SCREENSHOT01.png)
+  2. Public URL for your S3 Bucket (aka, your green candidate front-end) [URL02]
   3. Public URL for your CloudFront distribution (aka, your blue production front-end) [URL03]
   4. Public URLs to deployed application back-end in EC2 [URL04]
   5. Public URL to your Prometheus Server [URL05]
 - Your screenshots in JPG or PNG format, named using the screenshot number listed in the instructions. These screenshots should be included in your code repository in the root folder.
-  1. Job failed because of compile errors. [SCREENSHOT01]
-  1. Job failed because of unit tests. [SCREENSHOT02]
-  1. Job that failed because of vulnerable packages. [SCREENSHOT03]
-  1. An alert from one of your failed builds. [SCREENSHOT04]
-  1. Appropriate job failure for infrastructure creation. [SCREENSHOT05]
-  1. Appropriate job failure for the smoke test job. [SCREENSHOT06]
-  1. Successful rollback after a failed smoke test. [SCREENSHOT07]  
-  1. Successful promotion job. [SCREENSHOT08]
-  1. Successful cleanup job. [SCREENSHOT09]
-  1. Only deploy on pushed to `master` branch. [SCREENSHOT10]
-  1. Provide a screenshot of a graph of your EC2 instance including available memory, available disk space, and CPU usage. [SCREENSHOT11]
+  1. Job failed because of compile errors. [SCREENSHOT01](https://github.com/Ianodad/UdaPeopleForDaPeople/tree/master/screenshots/SCREENSHOT01.png)
+  1. Job failed because of unit tests. [SCREENSHOT02](https://github.com/Ianodad/UdaPeopleForDaPeople/tree/master/screenshots/SCREENSHOT02.png)
+  1. Job that failed because of vulnerable packages. [SCREENSHOT03](https://github.com/Ianodad/UdaPeopleForDaPeople/tree/master/screenshots/SCREENSHOT03.png)
+  1. An alert from one of your failed builds. [SCREENSHOT04](https://github.com/Ianodad/UdaPeopleForDaPeople/tree/master/screenshots/SCREENSHOT04.png)
+  1. Appropriate job failure for infrastructure creation. [SCREENSHOT05](https://github.com/Ianodad/UdaPeopleForDaPeople/tree/master/screenshots/SCREENSHOT05.png)
+  1. Appropriate job failure for the smoke test job. [SCREENSHOT06](https://github.com/Ianodad/UdaPeopleForDaPeople/tree/master/screenshots/SCREENSHOT06.png)
+  1. Successful rollback after a failed smoke test. [SCREENSHOT07](https://github.com/Ianodad/UdaPeopleForDaPeople/tree/master/screenshots/SCREENSHOT07.png)  
+  1. Successful promotion job. [SCREENSHOT08](https://github.com/Ianodad/UdaPeopleForDaPeople/tree/master/screenshots/SCREENSHOT08.png)
+  1. Successful cleanup job. [SCREENSHOT09](https://github.com/Ianodad/UdaPeopleForDaPeople/tree/master/screenshots/SCREENSHOT09.png)
+  1. Only deploy on pushed to `master` branch. [SCREENSHOT10](https://github.com/Ianodad/UdaPeopleForDaPeople/tree/master/screenshots/SCREENSHOT10.png)
+  1. Provide a screenshot of a graph of your EC2 instance including available memory, available disk space, and CPU usage. [SCREENSHOT11](https://github.com/Ianodad/UdaPeopleForDaPeople/tree/master/screenshots/SCREENSHOT12.png)
   1. Provide a screenshot of an alert that was sent by Prometheus. [SCREENSHOT12]
 
 - Your presentation should be in PDF format named "presentation.pdf" and should be included in your code repository root folder. 
@@ -52,7 +52,7 @@ Before you submit your project, please check your work against the project rubri
 - [Circle CI](www.circleci.com) - Cloud-based CI/CD service
 - [Amazon AWS](https://aws.amazon.com/) - Cloud services
 - [AWS CLI](https://aws.amazon.com/cli/) - Command-line tool for AWS
-- [CloudFormation](https://aws.amazon.com/cloudformation/) - Infrastrcuture as code
+- [CloudFormation](https://aws.amazon.com/cloudformation/) - Infrastructure as code
 - [Ansible](https://www.ansible.com/) - Configuration management tool
 - [Prometheus](https://prometheus.io/) - Monitoring tool
 
