@@ -350,9 +350,11 @@ jobs:
             cd backend
             npm i
             npm run build
+            tar -czf artifact.tar.gz dist/* package*
             cd ..
-            # Zip the directory
-            tar -C backend -czvf artifact.tar.gz .
+            cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
+            # # Zip the directory
+            # tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
             # Get ip from aws add to inventory directory
             BACKEND_PUBLIC_IP=$(aws ec2 describe-instances \
