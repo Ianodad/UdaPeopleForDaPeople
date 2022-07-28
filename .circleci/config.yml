@@ -274,11 +274,9 @@ jobs:
           name: Send migration results to kvdb.io
           command: |
             cd backend
-            if if [ $migration_status > 0 ]
+            if [ $migration_status > 0 ]
             then
               curl --insecure https://kvdb.io/4HZBfWn81g32AsNh3g3BmK/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
-              else
-                 echo "No Migrations were executed"
             fi
       - destroy-environment
       
@@ -323,20 +321,18 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: cimg/base:stable
     steps:
-      - checkout
+       checkout
+      - install_awscli
+      - install_ansible
+      - install_nodejs
       - add_ssh_keys:
           fingerprints: ['ab:f5:19:db:e3:0b:0b:c0:c6:20:e6:79:c7:a9:97:90']
       - attach_workspace:
           at: ~/
       - restore_cache:
           keys: [backend-build]
-      - run:
-          name: Install dependencies
-          command: |
-            apk add --update tar gzip ansible openssh-client nodejs npm curl
-            pip3 install awscli
       - run:
           name: Deploy backend
           command: |
