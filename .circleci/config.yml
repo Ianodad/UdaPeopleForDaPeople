@@ -263,7 +263,8 @@ jobs:
           name: Run database migrations using kvdb.io
           command: |
             cd backend
-            # npm install
+            npm install
+            # npm run build
             echo 'DUMP MIGRATIONS'
             echo "PWD: " $(pwd)
             npm run migrations > migrations_dump.txt
