@@ -239,36 +239,36 @@ jobs:
             ansible-playbook -i inventory.txt configure-server.yml
       - destroy-environment
      
-  # run-migrations:
-  #   docker:
-  #     - image: circleci/node:13.8.0
-  #   steps:
-  #     - checkout
-  #     - install_awscli
-  #     - restore_cache:
-  #         keys: [backend-build]
-  #     # # Run database migrations
-  #     - run:
-  #         name: Run database migrations using kvdb.io
-  #         command: |
-  #           cd backend
-  #           # npm install
-  #           echo 'DUMP MIGRATIONS'
-  #           echo "PWD: " $(pwd)
-  #           npm run migrations > migrations_dump.txt
-  #           cat migrations_dump.txt
-  #           export migration_status=$(cat migrations_dump.txt | grep -c "has been executed successfully")
-  #     - run:
-  #         name: Send migration results to kvdb.io
-  #         command: |
-  #           cd backend
-  #           if if [ $migration_status > 0 ]
-  #           then
-  #             curl --insecure https://kvdb.io/4HZBfWn81g32AsNh3g3BmK/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
-  #             else
-  #                echo "No Migrations were executed"
-  #           fi
-  #     - destroy-environment
+  run-migrations:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - install_awscli
+      - restore_cache:
+          keys: [backend-build]
+      # # Run database migrations
+      - run:
+          name: Run database migrations using kvdb.io
+          command: |
+            cd backend
+            # npm install
+            echo 'DUMP MIGRATIONS'
+            echo "PWD: " $(pwd)
+            npm run migrations > migrations_dump.txt
+            cat migrations_dump.txt
+            export migration_status=$(cat migrations_dump.txt | grep -c "has been executed successfully")
+      - run:
+          name: Send migration results to kvdb.io
+          command: |
+            cd backend
+            if if [ $migration_status > 0 ]
+            then
+              curl --insecure https://kvdb.io/4HZBfWn81g32AsNh3g3BmK/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+              else
+                 echo "No Migrations were executed"
+            fi
+      - destroy-environment
       
   deploy-frontend:
     docker:
@@ -468,16 +468,16 @@ workflows:
               only: [master]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
-      # - run-migrations:
-      #     requires: [configure-infrastructure]
-      # - deploy-frontend:
-      #     requires: [run-migrations]
+      - run-migrations:
+          requires: [configure-infrastructure]
       - deploy-frontend:
-          requires: [configure-infrastructure]
-      # - deploy-backend:
-      #     requires: [run-migrations]
+          requires: [run-migrations]
+      # - deploy-frontend:
+      #     requires: [configure-infrastructure]
       - deploy-backend:
-          requires: [configure-infrastructure]
+          requires: [run-migrations]
+      # - deploy-backend:
+      #     requires: [configure-infrastructure]
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
       - cloudfront-update:
