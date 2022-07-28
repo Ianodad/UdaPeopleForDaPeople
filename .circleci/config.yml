@@ -334,7 +334,7 @@ jobs:
       - restore_cache:
           keys: [backend-build]
       - run:
-          name: Deploy backend
+          name: Env setup
           command: |
             echo ENVIRONMENT=production >> "backend/.env"
             echo NODE_ENV=production >> "backend/.env"
@@ -347,12 +347,18 @@ jobs:
             echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> "backend/.env"
             echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> "backend/.env"
             echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> "backend/.env"
+      - run:
+          name: Package Backend
+          command: |
             cd backend
-            npm i
+            npm npm install
             npm run build
             tar -czf artifact.tar.gz dist/* package*
             cd ..
             cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
+      - run:
+          name: Deploy backend
+          command: |
             # # Zip the directory
             # tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
